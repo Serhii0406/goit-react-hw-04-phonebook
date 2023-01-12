@@ -1,0 +1,21 @@
+.searchLabel {
+    display: flex;
+    flex-direction: column;
+}
+
+.searchTitle {
+    font-weight: 500;
+    margin-bottom: 7px;
+}
+
+.searchInput {
+    padding: 5px;
+    font-size: 16px;
+    border-width: 1px;
+    border-color: #cccccc;
+    background-color: #ffffff;
+    color: #000000;
+    border-style: solid;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
