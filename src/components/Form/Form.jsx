@@ -1,37 +1,37 @@
-import { Component } from 'react';
-import { nanoid } from 'nanoid';
+import { useState } from 'react';
 import css from './Form.module.css'
 
-export class Form extends Component {
-  state = { name: '', id: '', number: '' };
+export const Form = ({onSubmit}) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  handleInputChange = event => {
-    const { name, value } = event.currentTarget;
-    this.setState({
-      [name]: value,
-      id: nanoid(),
-    });
-  };
-  handleSubmit = event => {
+  const handleNameChange = event => {
+    setName(event.target.value)
+  }
+
+  const handleNumberChange = event => {
+    setNumber(event.target.value)
+  }
+
+  const reset = () => {
+    setName('');
+    setNumber('');
+  }
+  const handleSubmit = event => {
     event.preventDefault();
 
-    this.props.onSubmit(this.state);
+    onSubmit({name, number});
 
-    this.reset();
+    reset();
   };
-
-  reset = () => {
-    this.setState({ name: '', id: '', number: '' });
-  };
-  render() {
-    return (
-        <form onSubmit={this.handleSubmit} className={css.form}>
+      return (
+        <form onSubmit={handleSubmit} className={css.form}>
             <label className={css.label}>
             <span className={css.formTitle}>Name</span>
           <input
             className={css.formInput}
-            value={this.state.name}
-            onChange={this.handleInputChange}
+            value={name}
+            onChange={handleNameChange}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -43,8 +43,8 @@ export class Form extends Component {
             <span className={css.formTitle}>Number</span>
           <input
             className={css.formInput}
-            value={this.state.number}
-            onChange={this.handleInputChange}
+            value={number}
+            onChange={handleNumberChange}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -57,5 +57,4 @@ export class Form extends Component {
         </button>
       </form>
     );
-  }
 }
